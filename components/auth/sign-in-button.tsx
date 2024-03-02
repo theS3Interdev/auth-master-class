@@ -1,10 +1,9 @@
 "use client";
 
-import { ReactNode } from "react";
 import { useRouter } from "next/navigation";
 
 type SignInButtonProps = {
-	children: ReactNode;
+	children: React.ReactNode;
 	mode?: "modal" | "redirect";
 	asChild?: boolean;
 };
