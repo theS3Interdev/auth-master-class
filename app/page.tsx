@@ -17,7 +17,7 @@ export default function Home() {
 						font.className
 					)}
 				>
-					🔐 Auth
+					🔐 Authentication
 				</h1>
 
 				<p className="text-white text-lg">Simple Authentication Service</p>
