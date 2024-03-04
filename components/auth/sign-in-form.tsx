@@ -44,18 +44,20 @@ export const SignInForm = () => {
 
 	const form = useForm<z.infer<typeof SignInSchema>>({
 		resolver: zodResolver(SignInSchema),
-		defaultValues: { email: "", password: "" },
+		defaultValues: {
+			email: "",
+			password: "",
+		},
 	});
 
 	const onSubmit = (values: z.infer<typeof SignInSchema>) => {
 		setError("");
-
 		setSuccess("");
 
 		startTransition(() => {
 			signin(values).then((data) => {
 				setError(data?.error);
-				//setSuccess(data?.success);
+				setSuccess(data?.success);
 			});
 		});
 	};
