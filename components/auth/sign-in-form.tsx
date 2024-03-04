@@ -105,6 +105,15 @@ export const SignInForm = () => {
 											type="password"
 										/>
 									</FormControl>
+
+									<Button
+										size="sm"
+										variant="link"
+										asChild
+										className="px-0 font-normal pt-3"
+									>
+										<Link href="/auth/reset">Forgot your password?</Link>
+									</Button>
 									<FormMessage />
 								</FormItem>
 							)}
