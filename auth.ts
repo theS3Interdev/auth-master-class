@@ -4,6 +4,8 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 
 import { db } from "@/lib/db";
 import { getUserById } from "@/lib/data/user";
+import { getTwoFactorConfirmationByUserId } from "@/lib/data/two-factor-confirmation";
+import { getAccountByUserId } from "./lib/data/account";
 import authConfig from "@/auth.config";
 
 export const {
@@ -34,18 +36,18 @@ export const {
 			/* prevent sign in without email verification */
 			if (!existingUser?.emailVerified) return false;
 
-			// if (existingUser.isTwoFactorEnabled) {
-			// 	const twoFactorConfirmation = await getTwoFactorConfirmationByUserId(
-			// 		existingUser.id
-			// 	);
+			if (existingUser.isTwoFactorEnabled) {
+				const twoFactorConfirmation = await getTwoFactorConfirmationByUserId(
+					existingUser.id
+				);
 
-			// 	if (!twoFactorConfirmation) return false;
+				if (!twoFactorConfirmation) return false;
 
-			// 	/* delete two factor confirmation for next sign in */
-			// 	await db.twoFactorConfirmation.delete({
-			// 		where: { id: twoFactorConfirmation.id },
-			// 	});
-			// }
+				/* delete two factor confirmation for next sign in */
+				await db.twoFactorConfirmation.delete({
+					where: { id: twoFactorConfirmation.id },
+				});
+			}
 
 			return true;
 		},
@@ -59,6 +61,19 @@ export const {
 				session.user.role = token.role as UserRole;
 			}
 
+			if (session.user) {
+				session.user.isTwoFactorEnabled = token.isTwoFactorEnabled as boolean;
+			}
+
+			if (session.user) {
+				session.user.name = token.name;
+				if (token.email) {
+					session.user.email = token.email;
+				}
+				//session.user.email = token.email;
+				session.user.isOAuth = token.isOAuth as boolean;
+			}
+
 			return session;
 		},
 
@@ -69,7 +84,13 @@ export const {
 
 			if (!existingUser) return token;
 
+			const existingAccount = await getAccountByUserId(existingUser.id);
+
+			token.isOAuth = !!existingAccount;
+			token.name = existingUser.name;
+			token.email = existingUser.email;
 			token.role = existingUser.role;
+			token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled;
 
 			return token;
 		},

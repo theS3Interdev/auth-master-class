@@ -9,7 +9,7 @@ export const sendTwoFactorTokenEmail = async (email: string, token: string) => {
 		from: "Mailer @ S3 <mailer@s3.co.ke>",
 		to: email,
 		subject: "2FA Code",
-		html: `<p>Your 2FA code is: ${token}</p>`,
+		html: `<p>Your Two Factor Authentication code is: ${token}</p>`,
 	});
 };
 
