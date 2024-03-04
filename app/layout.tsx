@@ -6,7 +6,7 @@ import { auth } from "@/auth";
 
 import { Toaster } from "@/components/ui/sonner";
 
-import "./global.css";
+import "@/app/globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 

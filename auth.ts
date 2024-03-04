@@ -6,6 +6,7 @@ import { db } from "@/lib/db";
 import { getUserById } from "@/lib/data/user";
 import { getTwoFactorConfirmationByUserId } from "@/lib/data/two-factor-confirmation";
 import { getAccountByUserId } from "./lib/data/account";
+
 import authConfig from "@/auth.config";
 
 export const {
@@ -13,6 +14,7 @@ export const {
 	handlers: { GET, POST },
 	signIn,
 	signOut,
+	unstable_update,
 } = NextAuth({
 	pages: {
 		signIn: "/auth/sign-in",

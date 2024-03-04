@@ -4,7 +4,7 @@ import * as z from "zod";
 import bcrypt from "bcryptjs";
 
 import { db } from "@/lib/db";
-import { update } from "@/auth";
+import { unstable_update as update } from "@/auth";
 import { SettingsSchema } from "@/lib/schemas";
 import { getUserByEmail, getUserById } from "@/lib/data/user";
 import { currentUser } from "@/lib/auth";
