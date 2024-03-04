@@ -11,6 +11,7 @@ import { FormSuccess } from "@/components/form-success";
 
 export const NewVerificationForm = () => {
 	const [error, setError] = useState<string | undefined>();
+
 	const [success, setSuccess] = useState<string | undefined>();
 
 	const searchParams = useSearchParams();
