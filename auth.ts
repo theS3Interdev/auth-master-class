@@ -72,7 +72,6 @@ export const {
 				if (token.email) {
 					session.user.email = token.email;
 				}
-				//session.user.email = token.email;
 				session.user.isOAuth = token.isOAuth as boolean;
 			}
 
